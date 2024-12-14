@@ -1,5 +1,3 @@
-import android.databinding.tool.writer.ViewBinding
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -16,7 +14,6 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -52,19 +49,23 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    dependencies {
-        implementation(libs.glide)
-        kapt(libs.glide.compiler)
-    }
 
-    // Room Database
+    // Glide dependencies
+    implementation(libs.glide)
+    kapt(libs.glide.compiler)
+
+    // Room Database dependencies
     implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.androidx.media3.extractor)
     kapt(libs.androidx.room.compiler)
 
-    // Testing
+    // Navigation dependencies
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+
+    // Media3 extractor
+    implementation(libs.androidx.media3.extractor)
+
+    // Testing dependencies
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
