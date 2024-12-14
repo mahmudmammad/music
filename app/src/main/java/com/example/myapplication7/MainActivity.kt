@@ -1,5 +1,6 @@
 package com.example.myapplication7
 
+import QuizFragment
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -8,9 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import com.example.myapplication7.ui.playlist.PlaylistFragment
-import com.example.myapplication7.ui.playlist.QuizFragment
-import com.example.myapplication7.ui.playlist.SearchFragment
+import  com.example.musicalquiz.ui.playlist.PlaylistFragment
+import com.example.myapplication7.ui.search.SearchFragment
+
+
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {

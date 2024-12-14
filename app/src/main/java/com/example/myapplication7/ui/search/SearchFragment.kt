@@ -1,4 +1,4 @@
-package com.example.myapplication7.ui.playlist
+package com.example.myapplication7.ui.search
 
 import android.os.Bundle
 import android.util.Log
