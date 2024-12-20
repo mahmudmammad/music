@@ -66,5 +66,4 @@ We are a team of two members who divided the tasks as follows:
 
 ### **Member 2**:
 - Developed the **Playlist** and **Quiz** functionalities.
-- Managed the **Room Database** integration.
 - Implemented the **Multiple Choice** and **Fill in the Blanks** game modes.
