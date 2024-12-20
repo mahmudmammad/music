@@ -19,15 +19,13 @@ The **MusicalQuiz** app is designed to provide a seamless music exploration expe
 
 ### **Screenshots**
 *Search Screen showing results*  
-![Search Screen](./assets/search.jpeg)
+<img src="./assets/search.jpeg" alt="Search Screen" width="400">
 
 *Playlist Management Interface*  
-![Playlist Screen](./assets/playlists.jpeg)  
+<img src="./assets/playlists.jpeg" alt="Playlist Screen" width="400">
 
-
-*Quiz setup interface*
-![Quiz Screen](./assets/quizzes.jpeg)  
-
+*Quiz interface*  
+<img src="./assets/quizzes.jpeg" alt="Quiz Screen" width="400">
 
 ---
 
