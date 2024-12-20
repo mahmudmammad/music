@@ -1,38 +1,31 @@
 package com.example.myapplication7
 
-import QuizFragment
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import  com.example.musicalquiz.ui.playlist.PlaylistFragment
+import com.example.myapplication7.ui.playlist.PlaylistDetailFragment
+import com.example.myapplication7.ui.playlist.PlaylistFragment
+import com.example.myapplication7.ui.quiz.QuizFragment
 import com.example.myapplication7.ui.search.SearchFragment
-
-
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigationView)
 
-        replaceFragment(QuizFragment())
+        // Show the default fragment on launch
+        if (savedInstanceState == null) {
+            replaceFragment(QuizFragment())
+        }
 
+        // Handle BottomNavigationView item selection
         bottomNavigation.setOnItemSelectedListener { item ->
-            Log.d("MainActivity", "Item clicked: ${item.itemId}")
             when (item.itemId) {
-
                 R.id.music -> {
-
                     replaceFragment(SearchFragment())
                     true
                 }
@@ -47,14 +40,26 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
     }
 
-    private fun replaceFragment(fragment: Fragment): Boolean {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragment_container, fragment)
-        fragmentTransaction.commit()
-        return true
+    // Replace the fragment in the container
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    // Navigate to PlaylistDetailFragment with playlist ID
+    fun navigateToPlaylistDetail(playlistId: Int) {
+        val fragment = PlaylistDetailFragment().apply {
+            arguments = Bundle().apply {
+                putInt("playlistId", playlistId)
+            }
+        }
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 }

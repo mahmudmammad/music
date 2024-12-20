@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.androidx.navigation.safe.args)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -52,6 +54,7 @@ dependencies {
 
     // Glide dependencies
     implementation(libs.glide)
+    implementation(libs.androidx.material3.android)
     kapt(libs.glide.compiler)
 
     // Room Database dependencies

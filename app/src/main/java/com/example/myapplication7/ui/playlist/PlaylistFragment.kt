@@ -1,70 +1,72 @@
-package com.example.musicalquiz.ui.playlist
+package com.example.myapplication7.ui.playlist
 
+import PlaylistAdapter
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication7.MainActivity
 import com.example.myapplication7.R
-import com.example.myapplication7.ui.playlist.PlaylistViewModel
+import com.example.myapplication7.data.model.Playlist
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+class PlaylistFragment : Fragment(R.layout.fragment_playlist) {
 
-class PlaylistFragment : Fragment() {
-
+    private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PlaylistAdapter
-    private lateinit var recyclerViewPlaylists: RecyclerView
-    private lateinit var createPlaylistButton: View
+    private lateinit var playlistViewModel: PlaylistViewModel
 
-    // Shared ViewModel scoped to the activity
-    private val playlistViewModel: PlaylistViewModel by activityViewModels()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_playlist, container, false)
+        // Initialize ViewModel
+        playlistViewModel = ViewModelProvider(requireActivity()).get(PlaylistViewModel::class.java)
 
-        recyclerViewPlaylists = rootView.findViewById(R.id.recyclerViewPlaylists)
-        createPlaylistButton = rootView.findViewById(R.id.createPlaylistButton)
+        recyclerView = view.findViewById(R.id.recyclerViewPlaylists)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        adapter = PlaylistAdapter(mutableListOf())
-        recyclerViewPlaylists.adapter = adapter
-
-        // Observe ViewModel data
-        playlistViewModel.playlists.observe(viewLifecycleOwner, Observer { playlists ->
-            adapter.notifyDataSetChanged()
-            adapter.playlists.clear()
-            adapter.playlists.addAll(playlists)
-        })
-
-        createPlaylistButton.setOnClickListener {
-            showAddPlaylistDialog()
+        // Observe playlists and update adapter
+        playlistViewModel.playlists.observe(viewLifecycleOwner) { playlists ->
+            adapter = PlaylistAdapter(playlists) { playlist ->
+                (activity as MainActivity).navigateToPlaylistDetail(playlist.id)
+            }
+            recyclerView.adapter = adapter
         }
 
-        return rootView
+        val createPlaylistButton: FloatingActionButton = view.findViewById(R.id.createPlaylistButton)
+        createPlaylistButton.setOnClickListener {
+            showCreatePlaylistDialog()
+        }
     }
 
-    private fun showAddPlaylistDialog() {
-        val dialogView = LayoutInflater.from(requireContext())
-            .inflate(R.layout.dialog_add_playlist, null)
+    private fun showCreatePlaylistDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Create New Playlist")
 
-        val playlistNameEditText = dialogView.findViewById<EditText>(R.id.playlistNameEditText)
+        val input = EditText(requireContext())
+        input.hint = "Enter playlist name"
+        builder.setView(input)
 
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Add Playlist")
-            .setView(dialogView)
-            .setPositiveButton("Add") { _, _ ->
-                val playlistName = playlistNameEditText.text.toString()
-                if (playlistName.isNotBlank()) {
-                    playlistViewModel.addPlaylist(playlistName)
-                }
+        builder.setPositiveButton("Create") { _, _ ->
+            val playlistName = input.text.toString()
+            if (playlistName.isNotBlank()) {
+                val newPlaylist = Playlist(
+                    id = System.currentTimeMillis().toInt(),
+                    name = playlistName,
+                    tracks = mutableListOf()
+                )
+                playlistViewModel.addPlaylist(newPlaylist)
+                Toast.makeText(requireContext(), "Playlist '$playlistName' created!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Playlist name cannot be empty", Toast.LENGTH_SHORT).show()
             }
-            .setNegativeButton("Cancel", null)
-            .show()
+        }
+        builder.setNegativeButton("Cancel") { dialog, _ -> dialog.dismiss() }
+        builder.show()
     }
 }

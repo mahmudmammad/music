@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="Music"
-        android:icon="@drawable/sharp_artist_24"
+        android:icon="@drawable/music_alt"
         android:id="@+id/music"/>
     <item android:title="Playlist"
-        android:icon="@drawable/sharp_adaptive_audio_mic_24"
+        android:icon="@drawable/list_music"
         android:id="@+id/playlist"/>
     <item android:title="Quiz"
-        android:icon="@drawable/twotone_album_24"
+        android:icon="@drawable/quiz_alt"
         android:id="@+id/quiz"/>
 </menu>

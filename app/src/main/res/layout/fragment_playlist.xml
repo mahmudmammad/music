@@ -42,7 +42,7 @@
         android:backgroundTint="@color/black"
         android:clickable="true"
         android:contentDescription="TODO"
-        android:src="@drawable/twotone_album_24"
+        android:src="@drawable/plus"
         android:tooltipText="Create Playlist"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
