@@ -60,7 +60,7 @@ We are a team of two members who divided the tasks as follows:
 
 ### **Member 1**:
 - Designed the app architecture.
-- Implemented the **Search** and **Details** screens.
+- Implemented the **Search** screens.
 - Integrated the **Deezer API** for fetching music data.
 
 ### **Member 2**:
