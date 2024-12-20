@@ -42,7 +42,6 @@ The app is built on the **MVVM (Model-View-ViewModel)** architecture. Below is a
 - **Bottom Navigation**: Ensures smooth navigation between the app's core features.
 - **RecyclerView**: Used for displaying search results and playlist items in a grid format.
 - **ViewModel**: Maintains UI-related data across configuration changes.
-- **Room Database**: Stores local data for playlists and quizzes.
 - **Deezer API**: Provides access to music tracks and album information.
 - **Kotlin**: Selected for its concise syntax and modern features, ensuring clean and readable code.
 
